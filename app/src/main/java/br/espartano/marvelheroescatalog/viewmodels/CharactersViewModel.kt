@@ -39,23 +39,19 @@ class CharactersViewModel : ViewModel() {
 
     private fun getMoreCharacters(page: Int) {
         currentPage = page
-        val disposable = MarvelApi
+        MarvelApi
             .getService()
-            .getAllCharacters(page * 20)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .flatMapIterable { response -> response.data.results }
-            .subscribe (
-                { character -> characters.add(character) },
-                { e -> e.printStackTrace()
-                    statesLiveData.value = CharactersStates.Error(e.message!!) },
-                { statesLiveData.value = CharactersStates.Loaded(characters) })
-    }
+            .getAllCharacters(page * 20)?.let {
+                it.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMapIterable { response -> response.data.results }
+                .subscribe (
+                    { character -> characters.add(character) },
+                    { e -> e.printStackTrace()
+                        statesLiveData.value = CharactersStates.Error(e.message!!) },
+                    { statesLiveData.value = CharactersStates.Loaded(characters) })
+            }
 
-    fun reset() {
-        currentPage = -1
-        characters.clear()
-        statesLiveData.value = CharactersStates.InitialState
     }
 
 }

@@ -8,7 +8,6 @@ import br.espartano.marvelheroescatalog.constants.ApiConstants.HEADER_TS
 import br.espartano.marvelheroescatalog.constants.ApiConstants.PRIVATE_API_KEY
 import br.espartano.marvelheroescatalog.data.api.Response
 import br.espartano.marvelheroescatalog.extensions.md5
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
@@ -24,7 +23,7 @@ import java.util.concurrent.TimeUnit
 interface MarvelApi {
 
     @GET("characters")
-    fun getAllCharacters(@Query("offset") offset : Int? = 0) : Observable<Response>
+    fun getAllCharacters(@Query("offset") offset : Int? = 0) : Observable<Response>?
 
     companion object {
         fun getService() : MarvelApi {
