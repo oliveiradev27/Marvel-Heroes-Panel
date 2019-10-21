@@ -17,5 +17,6 @@ class SplashActivity : AppCompatActivity() {
 
     private fun showListActivity() {
         startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 }
