@@ -58,20 +58,10 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelable("lmState", recyclerHeroes.layoutManager?.onSaveInstanceState())
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-        super.onRestoreInstanceState(savedInstanceState)
-        recyclerState = savedInstanceState?.getParcelable("lmState")
-    }
-
     private fun configureObserverStates() {
         viewModel
             .getStates()
-            .observe(this, Observer{ state : CharactersStates ->
+            .observe(this, Observer { state : CharactersStates ->
                 when (state) {
                     is CharactersStates.Loading -> frameLoading.visibility = View.VISIBLE
                     is CharactersStates.Loaded -> { updateCharacters(state.caracters) }
@@ -83,9 +73,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateCharacters(chars : List<Character>) {
         characters.clear()
-        chars.forEach {
-            adapter.add(it)
-        }
+        chars.forEach { adapter.add(it) }
 
         recyclerState?.let {
             recyclerHeroes.layoutManager?.onRestoreInstanceState(it)
@@ -98,10 +86,21 @@ class MainActivity : AppCompatActivity() {
     private fun showErrorMessage(message: String) {
         frameLoading.visibility = View.GONE
 
-        AlertDialog.Builder(this)
-            .setTitle("Mensagem do sistema")
+        AlertDialog
+            .Builder(this)
+            .setTitle(R.string.system_message)
             .setMessage(message)
             .create()
             .show()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable("lmState", recyclerHeroes.layoutManager?.onSaveInstanceState())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        recyclerState = savedInstanceState?.getParcelable("lmState")
     }
 }

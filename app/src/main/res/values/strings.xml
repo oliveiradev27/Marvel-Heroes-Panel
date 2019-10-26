@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Marvel Heroes Catalog</string>
+    <string name="system_message">Mensagem do sistema</string>
 </resources>
