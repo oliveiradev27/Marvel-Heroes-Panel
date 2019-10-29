@@ -3,8 +3,6 @@ package br.espartano.marvelheroescatalog.repository
 import br.espartano.marvelheroescatalog.data.api.Character
 import br.espartano.marvelheroescatalog.services.MarvelApi
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 class CharactersNetworkRepository : CharactersRepository {
 
@@ -12,9 +10,7 @@ class CharactersNetworkRepository : CharactersRepository {
         return MarvelApi
             .getService()
             .getAllCharacters(page * 20)?.let {
-                it.subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .flatMap { response -> Observable.just(response.data.results) }
+                    it.flatMap { response -> Observable.just(response.data.results) }
             }
     }
 }

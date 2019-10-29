@@ -4,7 +4,7 @@ import br.espartano.marvelheroescatalog.data.api.Character
 import br.espartano.marvelheroescatalog.repository.CharactersRepository
 import io.reactivex.Observable
 
-class CharactersUseCase (val repository: CharactersRepository) {
+class CharactersUseCase (private val repository: CharactersRepository) {
 
     fun getCharacteres(page: Int) : Observable<List<Character>>? {
         return repository.getCharacters(page)
