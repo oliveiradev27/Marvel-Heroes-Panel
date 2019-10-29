@@ -16,15 +16,17 @@
             android:background="#DDDDDD"/>
 
         <View
-            android:layout_width="50dp"
-            android:layout_height="24dp"
+            android:layout_width="100dp"
+            android:layout_height="28dp"
             android:layout_margin="16dp"
             android:background="#DDDDDD"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:background="#DDDDDD"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
