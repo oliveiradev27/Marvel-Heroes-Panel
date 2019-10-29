@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Marvel Heroes Catalog</string>
     <string name="system_message">Mensagem do sistema</string>
+    <string name="system_body_error">Ocorreu um erro ao carregar os personagens, tente novamente.</string>
+    <string name="try_again">Tentar novamente</string>
 </resources>
