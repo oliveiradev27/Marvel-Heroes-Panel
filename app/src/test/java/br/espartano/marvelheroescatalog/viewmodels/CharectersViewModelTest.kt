@@ -2,6 +2,8 @@ package br.espartano.marvelheroescatalog.viewmodels
 
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import br.espartano.marvelheroescatalog.data.api.Character
+import br.espartano.marvelheroescatalog.data.api.Thumbnail
 import br.espartano.marvelheroescatalog.repository.CharactersRepository
 import br.espartano.marvelheroescatalog.schedulers.TrampolineSchedulerProvider
 import br.espartano.marvelheroescatalog.usecase.CharactersUseCase
@@ -28,7 +30,7 @@ class CharectersViewModelTest {
     private val useCase = CharactersUseCase(repository)
 
     @Test
-    fun getCharacters_validStateError() {
+    fun getCharacters_shouldUpdateStateForError() {
         //given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
         every { repository.getCharacters(any()) } returns Observable.error(Throwable("error"))
@@ -41,7 +43,7 @@ class CharectersViewModelTest {
     }
 
     @Test
-    fun getCharacters_validStateEmpty() {
+    fun getCharacters_houldUpdateStateForEmpty() {
         //given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
         every { repository.getCharacters(any()) } returns Observable.just(arrayListOf())
@@ -51,5 +53,21 @@ class CharectersViewModelTest {
 
         //then
         assertEquals(CharactersStates.EmptyState, viewModel.getStates().value)
+    }
+
+    @Test
+    fun getCharacters_vhouldUpdateStateForLoaded() {
+        //given
+        val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
+        val characters = arrayListOf(
+            Character(1, "Espartano", "Overpower", Thumbnail("", ""))
+        )
+        every { repository.getCharacters(any()) } returns Observable.just(characters)
+
+        //when
+        viewModel.load()
+
+        //then
+        assert(viewModel.getStates().value is CharactersStates.Loaded)
     }
 }
