@@ -1,6 +1,5 @@
 package br.espartano.marvelheroescatalog.ui.activities
 
-import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
@@ -14,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.espartano.marvelheroescatalog.R
 import br.espartano.marvelheroescatalog.data.api.Character
 import br.espartano.marvelheroescatalog.repository.CharactersNetworkRepository
-import br.espartano.marvelheroescatalog.schedulers.BaseSchedulerProvider
+import br.espartano.marvelheroescatalog.schedulers.AppSchedulerProvider
 import br.espartano.marvelheroescatalog.ui.adapters.CharactersAdapter
 import br.espartano.marvelheroescatalog.usecase.CharactersUseCase
 import br.espartano.marvelheroescatalog.viewmodels.CharactersViewModel
@@ -27,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         val repository = CharactersNetworkRepository()
         ViewModelProviders
             .of(this,
-                CharactersViewModel.get(CharactersUseCase(repository), BaseSchedulerProvider()))
+                CharactersViewModel.get(CharactersUseCase(repository), AppSchedulerProvider()))
             .get(CharactersViewModel::class.java)
     }
 
@@ -77,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                     is CharactersStates.Loaded  -> updateCharacters(state.caracters)
                     is CharactersStates.Error   -> showErrorMessage()
                     is CharactersStates.InitialState -> configureInitialState()
-                    is CharactersStates.EmptyState  -> configureEmptystate()
+                    is CharactersStates.EmptyState  -> showErrorMessage()
                 }
             })
     }
@@ -91,19 +90,6 @@ class MainActivity : AppCompatActivity() {
             recyclerState = null
         }
         removeLoadEffect()
-    }
-
-    private fun configureEmptystate() {
-        AlertDialog
-            .Builder(this)
-            .setTitle(R.string.system_message)
-            .setMessage("Lista vazia!")
-            .setPositiveButton(R.string.try_again) { dialogInterface: DialogInterface, _: Int ->
-                viewModel.resetState()
-                dialogInterface.dismiss()
-            }
-            .create()
-            .show()
     }
 
     private fun configureInitialState() {
@@ -124,11 +110,13 @@ class MainActivity : AppCompatActivity() {
 
         AlertDialog
             .Builder(this)
+            .setCancelable(false)
             .setTitle(R.string.system_message)
             .setMessage(R.string.system_body_error)
-            .setPositiveButton(R.string.try_again) { dialogInterface: DialogInterface, _: Int ->
+            .setPositiveButton(R.string.try_again) { dialog, _ ->
+                frameLoading.visibility = View.VISIBLE
                 viewModel.resetState()
-                dialogInterface.dismiss()
+                dialog.dismiss()
             }
             .create()
             .show()

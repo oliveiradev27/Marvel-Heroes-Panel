@@ -33,7 +33,7 @@ class CharactersViewModel(private val useCase: CharactersUseCase,
         statesLiveData.value = CharactersStates.Loading
 
         if (page <= currentPage) {
-            statesLiveData.postValue(CharactersStates.Loaded(characters))
+            statesLiveData.value = CharactersStates.Loaded(characters)
         } else {
             getMoreCharacters(page)
         }
@@ -44,15 +44,14 @@ class CharactersViewModel(private val useCase: CharactersUseCase,
         useCase.getCharacteres(page =  currentPage)?.let {
                 it.subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
-                .subscribe ({ chars -> characters.addAll(chars) },
-                    { e -> e.printStackTrace()
-                        statesLiveData.value = CharactersStates.Error(e.message!!) },
+                .subscribe (
+                    { chars -> characters.addAll(chars) },
+                    { statesLiveData.value = CharactersStates.Error(it.message!!) },
                     {
-                        if (!characters.isEmpty()) {
-                            statesLiveData.value = CharactersStates.Loaded(characters)
-                        } else {
+                        if (characters.isNotEmpty())
+                             statesLiveData.value = CharactersStates.Loaded(characters)
+                        else
                             statesLiveData.value = CharactersStates.EmptyState
-                        }
                     }
                 )
             }
