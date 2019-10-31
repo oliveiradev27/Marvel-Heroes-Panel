@@ -31,7 +31,7 @@ class CharectersViewModelTest {
     private val useCase = CharactersUseCase(repository)
 
     @Test
-    fun resetState_shouldUpdateStateForInitialState() {
+    fun `when using resetState, must update state to Initial`() {
         //given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
 
@@ -43,7 +43,7 @@ class CharectersViewModelTest {
     }
 
     @Test
-    fun getCharacters_shouldUpdateStateForError() {
+    fun `when using getCharacters, must update state to Error`() {
         //given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
         every { repository.getCharacters(any()) } returns Observable.error(Throwable("error"))
@@ -56,7 +56,7 @@ class CharectersViewModelTest {
     }
 
     @Test
-    fun getCharacters_shouldUpdateStateForEmpty() {
+    fun `when using getCharacters when there is no return, must update state For Empty`() {
         //given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
         every { repository.getCharacters(any()) } returns Observable.just(arrayListOf())
@@ -69,7 +69,7 @@ class CharectersViewModelTest {
     }
 
     @Test
-    fun getCharacters_shouldUpdateStateForLoaded() {
+    fun `when using getCharacter, must update state to Loaded`() {
         //given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
         val characters = arrayListOf(
@@ -85,7 +85,7 @@ class CharectersViewModelTest {
     }
 
     @Test
-    fun getCharactersManyTwices_shouldUpdateStateForLoadedAllCharacters() {
+    fun `when using getCharacters many twices, must update state to Loaded and return all characters`() {
         //given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
 
@@ -113,7 +113,7 @@ class CharectersViewModelTest {
     }
 
     @Test
-    fun getMoreCharacters_shouldUpdateStateForLoadedAllCharacters() {
+    fun `when using getMoreCharacters, must update state to Loaded and return all characters`() {
         //given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
 
@@ -136,7 +136,7 @@ class CharectersViewModelTest {
     }
 
     @Test
-    fun getMoreCharactersTwoTwicesWithNotPaginate_shouldUpdateStateForLoadedOneCharacter() {
+    fun `when using getMoreCharacters directly, without first loading, you should return only the first page of characters`() {
         //given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
 
