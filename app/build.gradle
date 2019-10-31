@@ -17,10 +17,17 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
         }
     }
 }
@@ -58,4 +65,6 @@ dependencies {
 
     testImplementation "io.mockk:mockk:1.9.3"
     testImplementation "android.arch.core:core-testing:1.1.1"
+    testImplementation 'org.robolectric:robolectric:4.3'
+    testImplementation 'androidx.test.ext:junit:1.1.1'
 }
