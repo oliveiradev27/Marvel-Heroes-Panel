@@ -103,7 +103,6 @@ class CharectersViewModelTest {
         viewModel.load()
         viewModel.loadMoreCharacters()
 
-
         //then
         assert(viewModel.getStates().value is CharactersStates.Loaded)
 
@@ -125,7 +124,6 @@ class CharectersViewModelTest {
 
         //when
         viewModel.loadMoreCharacters()
-
 
         //then
         assert(viewModel.getStates().value is CharactersStates.Loaded)
@@ -149,7 +147,6 @@ class CharectersViewModelTest {
         //when
         viewModel.load()
         viewModel.load()
-
 
         //then
         assert(viewModel.getStates().value is CharactersStates.Loaded)
