@@ -59,7 +59,6 @@ class CharactersViewModel(private val useCase: CharactersUseCase,
 
     fun resetState() {
         statesLiveData.value = CharactersStates.InitialState
-        load()
     }
 
      companion object FACTORY {

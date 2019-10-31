@@ -31,6 +31,18 @@ class CharectersViewModelTest {
     private val useCase = CharactersUseCase(repository)
 
     @Test
+    fun resetState_shouldUpdateStateForInitialState() {
+        //given
+        val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
+
+        //when
+        viewModel.resetState()
+
+        //then
+        assertEquals(CharactersStates.InitialState, viewModel.getStates().value)
+    }
+
+    @Test
     fun getCharacters_shouldUpdateStateForError() {
         //given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
@@ -113,6 +125,30 @@ class CharectersViewModelTest {
 
         //when
         viewModel.loadMoreCharacters()
+
+
+        //then
+        assert(viewModel.getStates().value is CharactersStates.Loaded)
+
+        val state = viewModel.getStates().value as CharactersStates.Loaded
+        assertTrue(state.caracters.size == 1)
+        assertEquals(state.caracters[0].name, "Espartano")
+    }
+
+    @Test
+    fun getMoreCharactersTwoTwicesWithNotPaginate_shouldUpdateStateForLoadedOneCharacter() {
+        //given
+        val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
+
+        every { repository.getCharacters(0) } returns Observable.just(
+            arrayListOf(
+                Character(1, "Espartano", "Overpower", Thumbnail("", ""))
+            )
+        )
+
+        //when
+        viewModel.load()
+        viewModel.load()
 
 
         //then
