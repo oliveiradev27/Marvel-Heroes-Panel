@@ -9,7 +9,7 @@ class CharactersNetworkRepository : CharactersRepository {
     override fun getCharacters(page: Int): Observable<List<Character>>? {
         return MarvelApi
             .getService()
-            .getAllCharacters(page * 20)?.let {
+            .getAllCharacters(page)?.let {
                     it.flatMap { response -> Observable.just(response.data.results) }
             }
     }
