@@ -12,6 +12,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.reactivex.Observable
 import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -97,5 +98,28 @@ class CharectersViewModelTest {
         val state = viewModel.getStates().value as CharactersStates.Loaded
         assertEquals(state.caracters[0].name, "Espartano")
         assertEquals(state.caracters[1].name, "Asgardiano")
+    }
+
+    @Test
+    fun getMoreCharacters_shouldUpdateStateForLoadedAllCharacters() {
+        //given
+        val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
+
+        every { repository.getCharacters(0) } returns Observable.just(
+            arrayListOf(
+              Character(1, "Espartano", "Overpower", Thumbnail("", ""))
+            )
+        )
+
+        //when
+        viewModel.loadMoreCharacters()
+
+
+        //then
+        assert(viewModel.getStates().value is CharactersStates.Loaded)
+
+        val state = viewModel.getStates().value as CharactersStates.Loaded
+        assertTrue(state.caracters.size == 1)
+        assertEquals(state.caracters[0].name, "Espartano")
     }
 }
