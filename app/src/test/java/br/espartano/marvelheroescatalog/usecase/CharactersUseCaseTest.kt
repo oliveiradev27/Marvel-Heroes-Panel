@@ -16,7 +16,7 @@ class CharactersUseCaseTest {
         val repository = mockk<CharactersRepository>()
         val useCase = CharactersUseCase(repository)
 
-        every { repository.getCharacters(1) } returns Observable.just(mutableListOf(
+        every { repository.getCharacters(10) } returns Observable.just(mutableListOf(
             Character(1, "Espartano", "Overpower", Thumbnail("", ""))
         ))
 
