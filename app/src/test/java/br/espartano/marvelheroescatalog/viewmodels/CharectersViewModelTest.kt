@@ -43,7 +43,7 @@ class CharectersViewModelTest {
     }
 
     @Test
-    fun getCharacters_houldUpdateStateForEmpty() {
+    fun getCharacters_shouldUpdateStateForEmpty() {
         //given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
         every { repository.getCharacters(any()) } returns Observable.just(arrayListOf())
@@ -56,7 +56,7 @@ class CharectersViewModelTest {
     }
 
     @Test
-    fun getCharacters_vhouldUpdateStateForLoaded() {
+    fun getCharacters_shouldUpdateStateForLoaded() {
         //given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
         val characters = arrayListOf(
@@ -69,5 +69,33 @@ class CharectersViewModelTest {
 
         //then
         assert(viewModel.getStates().value is CharactersStates.Loaded)
+    }
+
+    @Test
+    fun getCharactersManyTwices_shouldUpdateStateForLoadedAllCharacters() {
+        //given
+        val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
+
+        every { repository.getCharacters(0) } returns Observable.just(arrayListOf(
+                Character(1, "Espartano", "Overpower", Thumbnail("", ""))
+            )
+        )
+        every { repository.getCharacters(10) } returns Observable.just(
+            arrayListOf(
+                Character(1, "Asgardiano", "Mid Power", Thumbnail("", ""))
+            )
+        )
+
+        //when
+        viewModel.load()
+        viewModel.loadMoreCharacters()
+
+
+        //then
+        assert(viewModel.getStates().value is CharactersStates.Loaded)
+
+        val state = viewModel.getStates().value as CharactersStates.Loaded
+        assertEquals(state.caracters[0].name, "Espartano")
+        assertEquals(state.caracters[1].name, "Asgardiano")
     }
 }
