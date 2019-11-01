@@ -67,4 +67,11 @@ dependencies {
     testImplementation "android.arch.core:core-testing:1.1.1"
     testImplementation 'org.robolectric:robolectric:4.3'
     testImplementation 'androidx.test.ext:junit:1.1.1'
+
+    implementation "org.koin:koin-android:2.0.1"
+    implementation "org.koin:koin-androidx-scope:2.0.1"
+    implementation "org.koin:koin-androidx-viewmodel:2.0.1"
+    implementation "org.koin:koin-androidx-ext:2.0.1"
+    testImplementation "org.koin:koin-test:2.0.1"
+    androidTestImplementation "org.koin:koin-test:2.0.1"
 }
