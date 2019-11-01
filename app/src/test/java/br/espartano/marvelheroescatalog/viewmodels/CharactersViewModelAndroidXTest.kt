@@ -52,7 +52,7 @@ class CharactersViewModelAndroidXTest {
 
             //then
             assert(viewModel.getStates().value is CharactersStates.Loaded)
-            //val state = viewModel.getStates().value as CharactersStates.Loaded
+            //val state = charactersViewModel.getStates().value as CharactersStates.Loaded
             //TestCase.assertTrue(state.caracters.size == 1)
         }
     }
