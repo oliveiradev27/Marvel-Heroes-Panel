@@ -6,7 +6,6 @@ import br.espartano.marvelheroescatalog.data.api.Character
 import br.espartano.marvelheroescatalog.usecase.CharactersUseCase
 import br.espartano.marvelheroescatalog.viewmodels.states.CharactersStates
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import br.espartano.marvelheroescatalog.schedulers.SchedulerProvider
 
 
@@ -24,9 +23,10 @@ class CharactersViewModel(private val useCase: CharactersUseCase,
 
     fun getStates() : LiveData<CharactersStates> = statesLiveData
 
-    fun loadMoreCharacters() {
-        val page = currentPage + 1
-        load(page)
+    fun loadMoreCharacters(lastVisibleItemPosition : Int) {
+        if (lastVisibleItemPosition == characters.size - 1) {
+                load(currentPage + 1)
+        }
     }
 
     fun load(page : Int = 0) {
@@ -60,15 +60,4 @@ class CharactersViewModel(private val useCase: CharactersUseCase,
     fun resetState() {
         statesLiveData.value = CharactersStates.InitialState
     }
-
-     companion object FACTORY {
-         fun get(useCase : CharactersUseCase,
-                 schedulerProvider: SchedulerProvider) : ViewModelProvider.Factory {
-             return object : ViewModelProvider.Factory {
-                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                     return CharactersViewModel(useCase, schedulerProvider) as T
-                 }
-             }
-         }
-     }
 }

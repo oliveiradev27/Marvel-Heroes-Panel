@@ -47,9 +47,7 @@ class MainActivity : AppCompatActivity() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 val lastVisibleItemPosition = manager.findLastVisibleItemPosition()
-                if (lastVisibleItemPosition == adapter.itemCount - 1) {
-                    charactersViewModel.loadMoreCharacters()
-                }
+                charactersViewModel.loadMoreCharacters(lastVisibleItemPosition)
             }
         })
     }
