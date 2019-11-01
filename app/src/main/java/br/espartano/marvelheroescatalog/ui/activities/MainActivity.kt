@@ -7,33 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.espartano.marvelheroescatalog.R
 import br.espartano.marvelheroescatalog.data.api.Character
-import br.espartano.marvelheroescatalog.repository.CharactersNetworkRepository
-import br.espartano.marvelheroescatalog.schedulers.AppSchedulerProvider
 import br.espartano.marvelheroescatalog.ui.adapters.CharactersAdapter
-import br.espartano.marvelheroescatalog.usecase.CharactersUseCase
 import br.espartano.marvelheroescatalog.viewmodels.CharactersViewModel
 import br.espartano.marvelheroescatalog.viewmodels.states.CharactersStates
 import com.facebook.shimmer.ShimmerFrameLayout
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel : CharactersViewModel by lazy {
-        val repository = CharactersNetworkRepository()
-        ViewModelProviders
-            .of(this,
-                CharactersViewModel.get(CharactersUseCase(repository), AppSchedulerProvider()))
-            .get(CharactersViewModel::class.java)
-    }
-
-
-    private val characters = mutableListOf<Character>(
-
-    )
+    val charactersViewModel: CharactersViewModel by viewModel()
+    private val characters = mutableListOf<Character>()
     private val adapter : CharactersAdapter by lazy {
          CharactersAdapter(characters)
     }
@@ -61,14 +48,14 @@ class MainActivity : AppCompatActivity() {
                 super.onScrollStateChanged(recyclerView, newState)
                 val lastVisibleItemPosition = manager.findLastVisibleItemPosition()
                 if (lastVisibleItemPosition == adapter.itemCount - 1) {
-                    viewModel.loadMoreCharacters()
+                    charactersViewModel.loadMoreCharacters()
                 }
             }
         })
     }
 
     private fun configureObserverStates() {
-        viewModel
+        charactersViewModel
             .getStates()
             .observe(this, Observer { state : CharactersStates ->
                 when (state) {
@@ -96,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         frameLoading.visibility = View.VISIBLE
         shimmerContainer.visibility = View.VISIBLE
         shimmerContainer.startShimmer()
-        viewModel.load()
+        charactersViewModel.load()
     }
 
     private fun removeLoadEffect() {
@@ -115,7 +102,7 @@ class MainActivity : AppCompatActivity() {
             .setMessage(R.string.system_body_error)
             .setPositiveButton(R.string.try_again) { dialog, _ ->
                 frameLoading.visibility = View.VISIBLE
-                viewModel.resetState()
+                charactersViewModel.resetState()
                 dialog.dismiss()
             }
             .create()
