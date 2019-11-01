@@ -1,4 +1,4 @@
-package br.espartano
+package br.espartano.marvelheroescatalog.app
 
 import android.app.Application
 import br.espartano.marvelheroescatalog.di.appModules
