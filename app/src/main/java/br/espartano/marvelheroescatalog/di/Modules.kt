@@ -10,6 +10,7 @@ import org.koin.dsl.module
 
 val appModules = module {
     single<CharactersRepository>{ CharactersNetworkRepository() }
+    single{ AppSchedulerProvider() }
     factory { CharactersUseCase(get()) }
-    viewModel { CharactersViewModel(get(), AppSchedulerProvider()) }
+    viewModel { CharactersViewModel(get(), get()) }
 }
