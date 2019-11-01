@@ -23,9 +23,9 @@ class CharactersViewModel(private val useCase: CharactersUseCase,
 
     fun getStates() : LiveData<CharactersStates> = statesLiveData
 
-    fun loadMoreCharacters(lastVisibleItemPosition : Int) {
-        if (lastVisibleItemPosition == characters.size - 1) {
-                load(currentPage + 1)
+    fun loadMoreCharacters(lastVisibleItemPosition : Int = 0) {
+        if (lastVisibleItemPosition >= characters.size - 1) {
+            load(currentPage + 1)
         }
     }
 
