@@ -23,13 +23,18 @@ class CharactersViewModel(private val useCase: CharactersUseCase,
 
     fun getStates() : LiveData<CharactersStates> = statesLiveData
 
-    fun loadMoreCharacters(lastVisibleItemPosition : Int = 0) {
-        if (lastVisibleItemPosition >= characters.size - 1) {
-            load(currentPage + 1)
+    fun loadMoreCharacters(lastVisibleItemPosition : Int = currentPage + 1) {
+        when (statesLiveData.value) {
+            is CharactersStates.InitialState -> load(lastVisibleItemPosition)
+            else -> {
+                if (lastVisibleItemPosition >= characters.size -1) load(lastVisibleItemPosition)
+            }
+
         }
+
     }
 
-    fun load(page : Int = 0) {
+    private fun load(page : Int = 0) {
         statesLiveData.value = CharactersStates.Loading
 
         if (page <= currentPage) {
@@ -58,6 +63,8 @@ class CharactersViewModel(private val useCase: CharactersUseCase,
     }
 
     fun resetState() {
+        currentPage = -1
+        characters.clear()
         statesLiveData.value = CharactersStates.InitialState
     }
 }

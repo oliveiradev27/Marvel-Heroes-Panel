@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         frameLoading.visibility = View.VISIBLE
         shimmerContainer.visibility = View.VISIBLE
         shimmerContainer.startShimmer()
-        charactersViewModel.load()
+        charactersViewModel.loadMoreCharacters()
     }
 
     private fun removeLoadEffect() {

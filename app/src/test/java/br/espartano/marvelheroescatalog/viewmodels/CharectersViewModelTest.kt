@@ -49,7 +49,7 @@ class CharectersViewModelTest {
         every { repository.getCharacters(any()) } returns Observable.error(Throwable("error"))
 
         //when
-        viewModel.load()
+        viewModel.loadMoreCharacters()
 
         //then
         assertEquals(CharactersStates.Error("error"), viewModel.getStates().value)
@@ -62,7 +62,7 @@ class CharectersViewModelTest {
         every { repository.getCharacters(any()) } returns Observable.just(arrayListOf())
 
         //when
-        viewModel.load()
+        viewModel.loadMoreCharacters()
 
         //then
         assertEquals(CharactersStates.EmptyState, viewModel.getStates().value)
@@ -78,7 +78,7 @@ class CharectersViewModelTest {
         every { repository.getCharacters(any()) } returns Observable.just(characters)
 
         //when
-        viewModel.load()
+        viewModel.loadMoreCharacters()
 
         //then
         assert(viewModel.getStates().value is CharactersStates.Loaded)
@@ -100,7 +100,7 @@ class CharectersViewModelTest {
         )
 
         //when
-        viewModel.load()
+        viewModel.loadMoreCharacters()
         viewModel.loadMoreCharacters()
 
         //then
@@ -145,8 +145,8 @@ class CharectersViewModelTest {
         )
 
         //when
-        viewModel.load()
-        viewModel.load()
+        viewModel.loadMoreCharacters()
+        viewModel.loadMoreCharacters(0)
 
         //then
         assert(viewModel.getStates().value is CharactersStates.Loaded)
