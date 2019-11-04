@@ -12,8 +12,9 @@ import org.koin.dsl.module
 
 val testModule = module {
     single <CharactersRepository>{ CharactersTestRepository() }
+    single<SchedulerProvider> { TrampolineSchedulerProvider() }
     factory { CharactersUseCase(get()) }
-    viewModel { CharactersViewModel(get(), TrampolineSchedulerProvider()) }
+    viewModel { CharactersViewModel(get(), get()) }
 }
 
 val testErrorModule = module {
