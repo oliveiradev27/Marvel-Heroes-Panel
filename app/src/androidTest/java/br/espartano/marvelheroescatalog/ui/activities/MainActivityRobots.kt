@@ -12,6 +12,7 @@ import org.koin.core.context.loadKoinModules
 
 object MainActivityRobotsConstants {
     const val HERO_NAME = "Espartano"
+    const val HERO_DESCRIPTION = "Overpower"
 }
 
 class MainActivityGiven {
@@ -39,6 +40,11 @@ class MainActivityThen {
     fun validateTitle(title : String) {
         onView(withId(R.id.tv_hero_name))
             .check(matches(withText(title)))
+    }
+
+    fun validateDescrition(description: String) {
+        onView(withId(R.id.tv_hero_description))
+            .check(matches(withText(description)))
     }
 
     fun validateVisibilityDialogError() {

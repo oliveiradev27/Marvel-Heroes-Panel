@@ -3,6 +3,7 @@ package br.espartano.marvelheroescatalog.ui.activities
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import br.espartano.marvelheroescatalog.di.testErrorModule
 import br.espartano.marvelheroescatalog.di.testModule
+import br.espartano.marvelheroescatalog.ui.activities.MainActivityRobotsConstants.HERO_DESCRIPTION
 import br.espartano.marvelheroescatalog.ui.activities.MainActivityRobotsConstants.HERO_NAME
 import org.junit.After
 
@@ -32,7 +33,10 @@ class MainActivityTest {
             initializeSucessDependencies()
             initializeActivity()
         }
-        then { validateTitle(HERO_NAME) }
+        then {
+            validateTitle(HERO_NAME)
+            validateDescrition(HERO_DESCRIPTION)
+        }
     }
 
     @Test
