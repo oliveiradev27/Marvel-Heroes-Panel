@@ -1,0 +1,32 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/progress"
+        android:top="16dp"
+        android:bottom="16dp">
+        <layer-list>
+            <item>
+                <rotate
+                    android:toDegrees="0"
+                    android:fromDegrees="1080">
+                    <shape android:shape="oval">
+                        <size android:height="240dp" android:width="240dp"/>
+                        <stroke
+                            android:width="3dp"
+                            android:color="#b71c1c" />
+                    </shape>
+                </rotate>
+            </item>
+            <item>
+                <rotate
+                    android:toDegrees="90"
+                    android:fromDegrees="720">
+                    <shape android:shape="oval">
+                        <size android:height="240dp" android:width="240dp"/>
+                        <stroke
+                            android:width="3dp"
+                            android:color="#D32F2F" />
+                    </shape>
+                </rotate>
+            </item>
+        </layer-list>
+    </item>
+</layer-list>
