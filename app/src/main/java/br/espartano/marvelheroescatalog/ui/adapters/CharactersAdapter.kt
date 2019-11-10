@@ -64,8 +64,8 @@ class CharactersAdapter(private val characters : MutableList<Character>)
         holder.bind(characters[position])
     }
 
-    fun add(char: Character) {
-        characters.add(char)
+    fun add(chars: List<Character>) {
+        characters.addAll(chars)
         notifyDataSetChanged()
     }
 

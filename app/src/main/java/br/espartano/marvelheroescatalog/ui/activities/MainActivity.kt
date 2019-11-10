@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateCharacters(chars : List<Character>) {
         characters.clear()
-        chars.forEach { adapter.add(it) }
+        adapter.add(chars)
 
         recyclerState?.let {
             recyclerHeroes.layoutManager?.onRestoreInstanceState(it)
