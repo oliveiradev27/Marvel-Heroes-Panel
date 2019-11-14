@@ -51,7 +51,7 @@ class CharactersViewModel(private val useCase: CharactersUseCase,
                 .observeOn(schedulerProvider.ui())
                 .subscribe (
                     { chars -> characters.addAll(chars) },
-                    { statesLiveData.value = CharactersStates.Error(it.message!!) },
+                    { e -> statesLiveData.value = CharactersStates.Error(e.message!!) },
                     {
                         if (characters.isNotEmpty())
                              statesLiveData.value = CharactersStates.Loaded(characters)
