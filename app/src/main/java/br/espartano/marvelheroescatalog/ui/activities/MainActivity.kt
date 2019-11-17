@@ -35,11 +35,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         configureObserverStates()
+        initializeViews()
+        configureListeners()
+    }
 
+    private fun initializeViews() {
         shimmerContainer = findViewById(R.id.shimmer_view_container)
         frameLoading = findViewById(R.id.fl_loading)
         recyclerHeroes = findViewById(R.id.rv_characters)
+    }
 
+    private fun configureListeners() {
         val manager = LinearLayoutManager(this)
         recyclerHeroes.layoutManager = manager
         recyclerHeroes.adapter = adapter
