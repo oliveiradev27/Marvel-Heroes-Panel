@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             .observe(this, Observer { state : CharactersStates ->
                 when (state) {
                     is CharactersStates.Loading -> { frameLoading.visibility = View.VISIBLE }
-                    is CharactersStates.Loaded  -> updateCharacters(state.caracters)
+                    is CharactersStates.Loaded  -> updateCharacters(state.characters)
                     is CharactersStates.Error   -> showErrorMessage()
                     is CharactersStates.InitialState -> configureInitialState()
                     is CharactersStates.EmptyState  -> showErrorMessage()

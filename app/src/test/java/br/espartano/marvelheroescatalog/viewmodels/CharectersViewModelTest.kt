@@ -107,8 +107,8 @@ class CharectersViewModelTest {
         assert(viewModel.getStates().value is CharactersStates.Loaded)
 
         val state = viewModel.getStates().value as CharactersStates.Loaded
-        assertEquals(state.caracters[0].name, "Espartano")
-        assertEquals(state.caracters[1].name, "Asgardiano")
+        assertEquals(state.characters[0].name, "Espartano")
+        assertEquals(state.characters[1].name, "Asgardiano")
     }
 
     @Test
@@ -129,8 +129,8 @@ class CharectersViewModelTest {
         assert(viewModel.getStates().value is CharactersStates.Loaded)
 
         val state = viewModel.getStates().value as CharactersStates.Loaded
-        assertTrue(state.caracters.size == 1)
-        assertEquals(state.caracters[0].name, "Espartano")
+        assertTrue(state.characters.size == 1)
+        assertEquals(state.characters[0].name, "Espartano")
     }
 
     @Test
@@ -152,7 +152,7 @@ class CharectersViewModelTest {
         assert(viewModel.getStates().value is CharactersStates.Loaded)
 
         val state = viewModel.getStates().value as CharactersStates.Loaded
-        assertTrue(state.caracters.size == 1)
-        assertEquals(state.caracters[0].name, "Espartano")
+        assertTrue(state.characters.size == 1)
+        assertEquals(state.characters[0].name, "Espartano")
     }
 }

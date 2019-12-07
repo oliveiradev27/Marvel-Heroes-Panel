@@ -1,5 +1,7 @@
 package br.espartano.marvelheroescatalog.di
 
+import br.espartano.marvelheroescatalog.extensions.TestImageLoader
+import br.espartano.marvelheroescatalog.interfaces.ImageLoader
 import br.espartano.marvelheroescatalog.repository.CharactersErrorTestRepository
 import br.espartano.marvelheroescatalog.repository.CharactersRepository
 import br.espartano.marvelheroescatalog.repository.CharactersTestRepository
@@ -13,6 +15,7 @@ import org.koin.dsl.module
 val testModule = module {
     single <CharactersRepository>{ CharactersTestRepository() }
     single<SchedulerProvider> { TrampolineSchedulerProvider() }
+    single<ImageLoader> { TestImageLoader() }
     factory { CharactersUseCase(get()) }
     viewModel { CharactersViewModel(get(), get()) }
 }
@@ -20,6 +23,7 @@ val testModule = module {
 val testErrorModule = module {
     single<CharactersRepository> { CharactersErrorTestRepository() }
     single<SchedulerProvider> { TrampolineSchedulerProvider() }
+    single<ImageLoader> { TestImageLoader() }
     factory {CharactersUseCase(get()) }
     viewModel { CharactersViewModel(get(), get()) }
 }

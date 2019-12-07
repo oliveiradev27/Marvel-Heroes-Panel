@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Marvel Heroes Catalog.iml" filepath="$PROJECT_DIR$/Marvel Heroes Catalog.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Marvel_Heroes_Catalog.iml" filepath="$PROJECT_DIR$/.idea/modules/Marvel_Heroes_Catalog.iml" group="Marvel_Heroes_Catalog" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Marvel Heroes Catalog/app" />
     </modules>
   </component>
 </project>
