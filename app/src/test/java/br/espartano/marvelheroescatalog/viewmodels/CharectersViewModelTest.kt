@@ -56,7 +56,7 @@ class CharectersViewModelTest {
     }
 
     @Test
-    fun `when using getCharacters when there is no return, must update state For Empty`() {
+    fun `when using getCharacters when there is no return results, must update state for Empty`() {
         //given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
         every { repository.getCharacters(any()) } returns Observable.just(arrayListOf())
