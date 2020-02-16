@@ -149,9 +149,8 @@ class CharectersViewModelTest {
         viewModel.loadMoreCharacters(0)
 
         //then
-        assert(viewModel.getStates().value is CharactersStates.Loaded)
-
         val state = viewModel.getStates().value as CharactersStates.Loaded
+        assert(viewModel.getStates().value is CharactersStates.Loaded)
         assertTrue(state.characters.size == 1)
         assertEquals(state.characters[0].name, "Espartano")
     }

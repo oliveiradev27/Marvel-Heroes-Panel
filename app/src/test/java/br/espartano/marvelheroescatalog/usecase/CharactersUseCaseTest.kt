@@ -39,10 +39,11 @@ class CharactersUseCaseTest {
 
         // then
         var throwableMessage : String? = null
-        useCase.getCharacteres(1)?.doOnError {
-           throwableMessage =  it.message
-        }
-
-        assertEquals("errot", throwableMessage)
+        useCase.getCharacteres(1)?.subscribe (
+            { },
+            { e -> throwableMessage = e.message },
+            { }
+        )
+        assertEquals("error", throwableMessage)
     }
 }
