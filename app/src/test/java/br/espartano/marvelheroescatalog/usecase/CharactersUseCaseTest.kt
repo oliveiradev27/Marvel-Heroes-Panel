@@ -28,4 +28,21 @@ class CharactersUseCaseTest {
 
         assertEquals("Espartano", nameCharacter)
     }
+
+    @Test
+    fun getCharacters_returningError() {
+        val repository = mockk<CharactersRepository>()
+        val useCase = CharactersUseCase(repository)
+
+        // given
+        every { repository.getCharacters(any()) } returns Observable.error(Throwable("error"))
+
+        // then
+        var throwableMessage : String? = null
+        useCase.getCharacteres(1)?.doOnError {
+           throwableMessage =  it.message
+        }
+
+        assertEquals("errot", throwableMessage)
+    }
 }

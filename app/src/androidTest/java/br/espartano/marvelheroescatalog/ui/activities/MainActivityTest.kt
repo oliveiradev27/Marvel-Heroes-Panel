@@ -15,7 +15,6 @@ import org.koin.core.context.unloadKoinModules
 class MainActivityTest {
 
     private fun given(func: MainActivityGiven.() -> Unit) = MainActivityGiven().apply { func() }
-    //private fun `when`(func: MainActivityWhen.() -> Unit) = MainActivityWhen().apply { func() }
     private fun then(func: MainActivityThen.() -> Unit) = MainActivityThen().apply { func() }
 
     @After
