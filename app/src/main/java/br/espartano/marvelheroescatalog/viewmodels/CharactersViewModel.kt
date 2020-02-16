@@ -27,7 +27,7 @@ class CharactersViewModel(private val useCase: CharactersUseCase,
     fun loadMoreCharacters(lastVisibleItemPosition : Int = currentPage + 1) {
         when (statesLiveData.value) {
             is CharactersStates.InitialState -> load()
-            else -> { load(lastVisibleItemPosition) }
+            else ->  load(lastVisibleItemPosition)
         }
     }
 
