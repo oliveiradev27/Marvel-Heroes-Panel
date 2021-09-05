@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import br.espartano.marvelheroescatalog.R
 
 class SplashActivity : AppCompatActivity() {
@@ -12,7 +13,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        Handler().postDelayed({ showListActivity() }, 2000)
+        Handler(Looper.getMainLooper()).postDelayed({ showListActivity() }, 2000)
     }
 
     private fun showListActivity() {
