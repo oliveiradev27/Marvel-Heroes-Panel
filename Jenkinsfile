@@ -1,11 +1,11 @@
 pipeline {
 
-    agent {
+    /** agent {
         docker {
             image 'androidsdk/android-30'
         }
-    }
-    /* agent { label 'mac' } */
+    } **/
+     agent { label 'mac' }
 
     environment {
         branch = 'master'
