@@ -11,9 +11,8 @@ buildscript {
         okhttp_version = '3.8.0'
         glide_version = '4.3.1'
         lifecycle_version = '1.1.1'
-        gradle_version = '3.5.2'
+        gradle_version = '3.6.1'
     }
-
     repositories {
         google()
         mavenCentral()
