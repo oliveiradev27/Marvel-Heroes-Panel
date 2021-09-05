@@ -118,8 +118,8 @@ class MainActivity : AppCompatActivity() {
         outState.putParcelable("lmState", recyclerHeroes.layoutManager?.onSaveInstanceState())
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        recyclerState = savedInstanceState?.getParcelable("lmState")
+        recyclerState = savedInstanceState.getParcelable("lmState")
     }
 }
