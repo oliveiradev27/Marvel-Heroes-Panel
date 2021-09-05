@@ -39,10 +39,10 @@ pipeline {
                     sh "cp '${ANDROID_KEYSTORE_FILE}' app/marvel.jks"
                     sh "cat app/marvel.jks"
                 }
-                /**withCredentials([file(credentialsId: 'FIREBASE_SERVICE_ACCOUNT_FILE', variable: 'FIREBASE_SERVICE_ACCOUNT_FILE')]) {
+                withCredentials([file(credentialsId: 'FIREBASE_SERVICE_ACCOUNT_FILE', variable: 'FIREBASE_SERVICE_ACCOUNT_FILE')]) {
                     sh "cp '${FIREBASE_SERVICE_ACCOUNT_FILE}' app/service-account-firebasedist.json"
                     sh "cat app/service-account-firebasedist.json"
-                } **/
+                }
             }
         }
 
@@ -54,11 +54,11 @@ pipeline {
 
         stage('Publish') {
             parallel {
-                /**stage('Firebase Distribution') {
+                stage('Firebase Distribution') {
                     steps {
                         sh "./gradlew appDistributionUploadRelease"
                     }
-                }**/
+                }
 
                 stage('Google Play...') {
                     steps {
