@@ -4,8 +4,6 @@ apply plugin: 'com.google.firebase.appdistribution'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 def keystorePropertiesFile = rootProject.file("app/keystore.properties")
