@@ -20,9 +20,9 @@ pipeline {
             }
         }
 
-        stage('Lint') {
+        stage('Build and Lint') {
             steps {
-                sh "./gradlew lint"
+                sh "./gradlew lint --stacktrace"
             }
         }
 
