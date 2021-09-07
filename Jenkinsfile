@@ -22,7 +22,7 @@ pipeline {
 
         stage('Build and Lint') {
             steps {
-                sh "./gradlew lint --stacktrace"
+                sh "./gradlew --no-daemon lint --stacktrace"
             }
         }
 
