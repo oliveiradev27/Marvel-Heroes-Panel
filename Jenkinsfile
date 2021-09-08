@@ -22,13 +22,13 @@ pipeline {
 
         stage('Lint') {
             steps {
-                sh "./gradlew --no-daemon assembleDebug --stacktrace"
+                sh "./gradlew --no-daemon lint --stacktrace"
             }
         }
 
         stage('Test') {
             steps {
-                sh "./gradlew test --stacktrace"
+                sh "./gradlew --no-deamon test --stacktrace"
             }
         }
 
