@@ -12,8 +12,8 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModules = module {
-    single<CharactersRepository>{ CharactersNetworkRepository() }
-    single<SchedulerProvider>{ AppSchedulerProvider() }
+    single<CharactersRepository> { CharactersNetworkRepository() }
+    single<SchedulerProvider> { AppSchedulerProvider() }
     single<ImageLoader> { GlideImageLoader() }
     factory { CharactersUseCase(get()) }
     viewModel { CharactersViewModel(get(), get()) }

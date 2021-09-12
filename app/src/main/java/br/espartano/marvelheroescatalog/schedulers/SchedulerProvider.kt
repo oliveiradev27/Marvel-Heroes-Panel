@@ -5,18 +5,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 interface SchedulerProvider {
-    fun computation() : Scheduler
-    fun io() : Scheduler
-    fun ui() : Scheduler
+    fun computation(): Scheduler
+    fun io(): Scheduler
+    fun ui(): Scheduler
 }
 
-class AppSchedulerProvider: SchedulerProvider {
+class AppSchedulerProvider : SchedulerProvider {
     override fun computation() = Schedulers.computation()
     override fun io() = Schedulers.io()
     override fun ui() = AndroidSchedulers.mainThread()
 }
 
-class TrampolineSchedulerProvider: SchedulerProvider {
+class TrampolineSchedulerProvider : SchedulerProvider {
     override fun computation() = Schedulers.trampoline()
     override fun io() = Schedulers.trampoline()
     override fun ui() = Schedulers.trampoline()

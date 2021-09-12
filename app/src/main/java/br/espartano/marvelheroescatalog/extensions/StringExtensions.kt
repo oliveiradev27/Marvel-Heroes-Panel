@@ -4,7 +4,7 @@ import java.lang.StringBuilder
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
-fun String.md5() : String {
+fun String.md5(): String {
     try {
         val digest = MessageDigest.getInstance("MD5")
         digest.update(toByteArray())

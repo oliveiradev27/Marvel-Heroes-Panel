@@ -5,6 +5,5 @@ import io.reactivex.Observable
 
 interface CharactersRepository {
 
-    fun getCharacters(page: Int) : Observable<List<Character>>?
-
+    fun getCharacters(page: Int): Observable<List<Character>>?
 }

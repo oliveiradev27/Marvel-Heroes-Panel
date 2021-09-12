@@ -5,7 +5,7 @@ import android.widget.ImageView
 import br.espartano.marvelheroescatalog.interfaces.ImageLoader
 import com.bumptech.glide.Glide
 
-class GlideImageLoader: ImageLoader {
+class GlideImageLoader : ImageLoader {
 
     override fun load(imageView: ImageView, context: Context, url: String) {
         Glide.with(context)

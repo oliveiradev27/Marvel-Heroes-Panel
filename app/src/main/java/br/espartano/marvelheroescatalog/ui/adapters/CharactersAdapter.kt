@@ -32,7 +32,7 @@ class CharactersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         imgHero.load(buildUrlImage(char.thumbnail))
     }
 
-    private fun setDescription(description : String) {
+    private fun setDescription(description: String) {
         if (!TextUtils.isEmpty(description)) {
             txtDescription.apply {
                 text = description
@@ -45,11 +45,10 @@ class CharactersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private fun buildUrlImage(thumb: Thumbnail) =
         "${thumb.path}.${thumb.extension}"
-
 }
 
-class CharactersAdapter(private val characters : MutableList<Character>)
-    : RecyclerView.Adapter<CharactersViewHolder>() {
+class CharactersAdapter(private val characters: MutableList<Character>) :
+    RecyclerView.Adapter<CharactersViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersViewHolder {
         val view = LayoutInflater
             .from(parent.context)
@@ -68,5 +67,4 @@ class CharactersAdapter(private val characters : MutableList<Character>)
         characters.addAll(chars)
         notifyDataSetChanged()
     }
-
 }

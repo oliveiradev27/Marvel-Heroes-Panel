@@ -20,7 +20,7 @@ class CharactersUseCaseTest {
             Character(1, "Espartano", "Overpower", Thumbnail("", ""))
         ))
 
-        var nameCharacter : String? = null
+        var nameCharacter: String? = null
 
         useCase.getCharacteres(1)?.subscribe {
                 nameCharacter = it[0].name
@@ -38,8 +38,8 @@ class CharactersUseCaseTest {
         every { repository.getCharacters(any()) } returns Observable.error(Throwable("error"))
 
         // then
-        var throwableMessage : String? = null
-        useCase.getCharacteres(1)?.subscribe (
+        var throwableMessage: String? = null
+        useCase.getCharacteres(1)?.subscribe(
             { },
             { e -> throwableMessage = e.message },
             { }

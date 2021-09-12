@@ -6,10 +6,10 @@ import br.espartano.marvelheroescatalog.interfaces.ImageLoader
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-object ImageViewInjector: KoinComponent {
-    val loader : ImageLoader by inject()
+object ImageViewInjector : KoinComponent {
+    val loader: ImageLoader by inject()
 }
 
-fun ImageView.load(url : String) {
+fun ImageView.load(url: String) {
     loader.load(this, context, url)
 }

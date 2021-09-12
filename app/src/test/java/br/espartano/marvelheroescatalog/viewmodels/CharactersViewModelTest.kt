@@ -1,6 +1,5 @@
 package br.espartano.marvelheroescatalog.viewmodels
 
-
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import br.espartano.marvelheroescatalog.data.api.Character
 import br.espartano.marvelheroescatalog.data.api.Thumbnail
@@ -18,13 +17,12 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
-
 @RunWith(JUnit4::class)
-class CharectersViewModelTest {
+class CharactersViewModelTest {
 
     @Rule
     @JvmField
-    val instantTaskExecutorRule: InstantTaskExecutorRule  = InstantTaskExecutorRule()
+    val instantTaskExecutorRule: InstantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val trampolineSchedulerProvider = TrampolineSchedulerProvider()
     private val repository = mockk<CharactersRepository>()
@@ -32,78 +30,94 @@ class CharectersViewModelTest {
 
     @Test
     fun `when using resetState, must update state to Initial`() {
-        //given
+        // given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
 
-        //when
+        // when
         viewModel.resetState()
 
-        //then
+        // then
         assertEquals(CharactersStates.InitialState, viewModel.getStates().value)
     }
 
     @Test
     fun `when using getCharacters, must update state to Error`() {
-        //given
+        // given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
         every { repository.getCharacters(any()) } returns Observable.error(Throwable("error"))
 
-        //when
+        // when
         viewModel.loadMoreCharacters()
 
-        //then
+        // then
         assertEquals(CharactersStates.Error("error"), viewModel.getStates().value)
     }
 
     @Test
     fun `when using getCharacters when there is no return results, must update state for Empty`() {
-        //given
+        // given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
         every { repository.getCharacters(any()) } returns Observable.just(arrayListOf())
 
-        //when
+        // when
         viewModel.loadMoreCharacters()
 
-        //then
+        // then
         assertEquals(CharactersStates.EmptyState, viewModel.getStates().value)
     }
 
     @Test
     fun `when using getCharacter, must update state to Loaded`() {
-        //given
+        // given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
         val characters = arrayListOf(
-            Character(1, "Espartano", "Overpower", Thumbnail("", ""))
+            Character(
+                1,
+                "Espartano",
+                "Overpower",
+                Thumbnail("", "")
+            )
         )
         every { repository.getCharacters(any()) } returns Observable.just(characters)
 
-        //when
+        // when
         viewModel.loadMoreCharacters()
 
-        //then
+        // then
         assert(viewModel.getStates().value is CharactersStates.Loaded)
     }
 
     @Test
-    fun `when using getCharacters many twices, must update state to Loaded and return all characters`() {
-        //given
+    fun `when using getCharacters many twices, must update to Loaded and return all characters`() {
+        // given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
 
-        every { repository.getCharacters(0) } returns Observable.just(arrayListOf(
-                Character(1, "Espartano", "Overpower", Thumbnail("", ""))
+        every { repository.getCharacters(0) } returns Observable.just(
+            arrayListOf(
+                Character(
+                    1,
+                    "Espartano",
+                    "Overpower",
+                    Thumbnail("", "")
+                )
             )
         )
         every { repository.getCharacters(10) } returns Observable.just(
             arrayListOf(
-                Character(1, "Asgardiano", "Mid Power", Thumbnail("", ""))
+                Character(
+                    1,
+                    "Asgardiano",
+                    "Mid Power",
+                    Thumbnail("", "")
+                )
             )
         )
 
-        //when
+        // when
         viewModel.loadMoreCharacters()
         viewModel.loadMoreCharacters()
 
-        //then
+        // then
         assert(viewModel.getStates().value is CharactersStates.Loaded)
 
         val state = viewModel.getStates().value as CharactersStates.Loaded
@@ -113,19 +127,24 @@ class CharectersViewModelTest {
 
     @Test
     fun `when using getMoreCharacters, must update state to Loaded and return all characters`() {
-        //given
+        // given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
 
         every { repository.getCharacters(0) } returns Observable.just(
             arrayListOf(
-              Character(1, "Espartano", "Overpower", Thumbnail("", ""))
+                Character(
+                    1,
+                    "Espartano",
+                    "Overpower",
+                    Thumbnail("", "")
+                )
             )
         )
 
-        //when
+        // when
         viewModel.loadMoreCharacters()
 
-        //then
+        // then
         assert(viewModel.getStates().value is CharactersStates.Loaded)
 
         val state = viewModel.getStates().value as CharactersStates.Loaded
@@ -134,21 +153,26 @@ class CharectersViewModelTest {
     }
 
     @Test
-    fun `when using getMoreCharacters directly, without first loading, you should return only the first page of characters`() {
-        //given
+    fun `when using getMoreCharacters without first loading, should return only the first page`() {
+        // given
         val viewModel = CharactersViewModel(useCase, trampolineSchedulerProvider)
 
         every { repository.getCharacters(0) } returns Observable.just(
             arrayListOf(
-                Character(1, "Espartano", "Overpower", Thumbnail("", ""))
+                Character(
+                    1,
+                    "Espartano",
+                    "Overpower",
+                    Thumbnail("", "")
+                )
             )
         )
 
-        //when
+        // when
         viewModel.loadMoreCharacters()
         viewModel.loadMoreCharacters(0)
 
-        //then
+        // then
         val state = viewModel.getStates().value as CharactersStates.Loaded
         assert(viewModel.getStates().value is CharactersStates.Loaded)
         assertTrue(state.characters.size == 1)

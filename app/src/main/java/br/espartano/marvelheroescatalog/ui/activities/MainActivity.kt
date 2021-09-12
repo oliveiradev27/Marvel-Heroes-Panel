@@ -1,12 +1,11 @@
 package br.espartano.marvelheroescatalog.ui.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.espartano.marvelheroescatalog.R
@@ -21,14 +20,12 @@ class MainActivity : AppCompatActivity() {
 
     val charactersViewModel: CharactersViewModel by viewModel()
     private val characters = mutableListOf<Character>()
-    private val adapter : CharactersAdapter by lazy {
-         CharactersAdapter(characters)
-    }
+    private val adapter: CharactersAdapter by lazy { CharactersAdapter(characters) }
 
-    private lateinit var recyclerHeroes : RecyclerView
-    private lateinit var frameLoading : ViewGroup
+    private lateinit var recyclerHeroes: RecyclerView
+    private lateinit var frameLoading: ViewGroup
     private lateinit var shimmerContainer: ShimmerFrameLayout
-    private var recyclerState : Parcelable? = null
+    private var recyclerState: Parcelable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         val manager = LinearLayoutManager(this)
         recyclerHeroes.layoutManager = manager
         recyclerHeroes.adapter = adapter
-        recyclerHeroes.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+        recyclerHeroes.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 val lastVisibleItemPosition = manager.findLastVisibleItemPosition()
@@ -61,18 +58,18 @@ class MainActivity : AppCompatActivity() {
     private fun configureObserverStates() {
         charactersViewModel
             .getStates()
-            .observe(this, Observer { state : CharactersStates ->
+            .observe(this, { state: CharactersStates ->
                 when (state) {
                     is CharactersStates.Loading -> { frameLoading.visibility = View.VISIBLE }
-                    is CharactersStates.Loaded  -> updateCharacters(state.characters)
-                    is CharactersStates.Error   -> showErrorMessage()
+                    is CharactersStates.Loaded -> updateCharacters(state.characters)
+                    is CharactersStates.Error -> showErrorMessage()
                     is CharactersStates.InitialState -> configureInitialState()
-                    is CharactersStates.EmptyState  -> showErrorMessage()
+                    is CharactersStates.EmptyState -> showErrorMessage()
                 }
             })
     }
 
-    private fun updateCharacters(chars : List<Character>) {
+    private fun updateCharacters(chars: List<Character>) {
         characters.clear()
         adapter.add(chars)
 
