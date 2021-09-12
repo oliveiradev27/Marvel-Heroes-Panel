@@ -54,7 +54,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh "./gradlew --no-daemon clean assembleRelease --stacktrace"
+                sh "./gradlew --no-daemon assembleRelease --stacktrace"
             }
         }
 
