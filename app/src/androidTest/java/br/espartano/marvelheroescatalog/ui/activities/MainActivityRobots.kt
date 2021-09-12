@@ -31,13 +31,11 @@ class MainActivityGiven {
     }
 }
 
-class MainActivityWhen {
-
-}
+class MainActivityWhen
 
 class MainActivityThen {
 
-    fun validateTitle(title : String) {
+    fun validateTitle(title: String) {
         onView(withId(R.id.tv_hero_name))
             .check(matches(withText(title)))
     }

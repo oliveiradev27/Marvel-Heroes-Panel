@@ -13,7 +13,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val testModule = module {
-    single <CharactersRepository>{ CharactersTestRepository() }
+    single <CharactersRepository> { CharactersTestRepository() }
     single<SchedulerProvider> { TrampolineSchedulerProvider() }
     single<ImageLoader> { TestImageLoader() }
     factory { CharactersUseCase(get()) }
@@ -24,6 +24,6 @@ val testErrorModule = module {
     single<CharactersRepository> { CharactersErrorTestRepository() }
     single<SchedulerProvider> { TrampolineSchedulerProvider() }
     single<ImageLoader> { TestImageLoader() }
-    factory {CharactersUseCase(get()) }
+    factory { CharactersUseCase(get()) }
     viewModel { CharactersViewModel(get(), get()) }
 }

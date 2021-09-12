@@ -6,7 +6,6 @@ import br.espartano.marvelheroescatalog.di.testModule
 import br.espartano.marvelheroescatalog.ui.activities.MainActivityRobotsConstants.HERO_DESCRIPTION
 import br.espartano.marvelheroescatalog.ui.activities.MainActivityRobotsConstants.HERO_NAME
 import org.junit.After
-
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.core.context.unloadKoinModules
