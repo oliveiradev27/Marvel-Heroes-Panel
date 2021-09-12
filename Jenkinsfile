@@ -28,7 +28,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh "./gradlew --no-deamon test --stacktrace"
+                sh "./gradlew test --stacktrace"
             }
         }
 
