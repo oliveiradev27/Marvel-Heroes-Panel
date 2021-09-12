@@ -26,6 +26,12 @@ pipeline {
             }
         }
 
+        stage('KTLint') {
+            steps {
+                sh "./gradlew ktlintCheck"
+            }
+        }
+
         stage('Test') {
             steps {
                 sh "./gradlew test --stacktrace"
