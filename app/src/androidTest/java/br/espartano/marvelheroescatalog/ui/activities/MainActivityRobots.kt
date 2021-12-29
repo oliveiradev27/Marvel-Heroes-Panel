@@ -8,8 +8,6 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import br.espartano.marvelheroescatalog.R
-import br.espartano.marvelheroescatalog.repository.CharactersErrorTestRepository
-import br.espartano.marvelheroescatalog.repository.CharactersRepository
 
 object MainActivityRobotsConstants {
     const val HERO_NAME = "Espartano"
