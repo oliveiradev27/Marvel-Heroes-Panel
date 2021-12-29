@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,11 +15,12 @@ import br.espartano.marvelheroescatalog.ui.adapters.CharactersAdapter
 import br.espartano.marvelheroescatalog.viewmodels.CharactersViewModel
 import br.espartano.marvelheroescatalog.viewmodels.states.CharactersStates
 import com.facebook.shimmer.ShimmerFrameLayout
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    val charactersViewModel: CharactersViewModel by viewModel()
+    val charactersViewModel: CharactersViewModel by viewModels()
     private val characters = mutableListOf<Character>()
     private val adapter: CharactersAdapter by lazy { CharactersAdapter(characters) }
 

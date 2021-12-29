@@ -7,8 +7,11 @@ import br.espartano.marvelheroescatalog.data.api.Character
 import br.espartano.marvelheroescatalog.schedulers.SchedulerProvider
 import br.espartano.marvelheroescatalog.usecase.CharactersUseCase
 import br.espartano.marvelheroescatalog.viewmodels.states.CharactersStates
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class CharactersViewModel(
+@HiltViewModel
+class CharactersViewModel @Inject constructor(
     private val useCase: CharactersUseCase,
     private val schedulerProvider: SchedulerProvider
 ) : ViewModel() {
@@ -38,6 +41,10 @@ class CharactersViewModel(
 
         statesLiveData.value = CharactersStates.Loading
 
+        handlerPagination(page)
+    }
+
+    private fun handlerPagination(page: Int) {
         if (page <= currentPage) {
             statesLiveData.value = CharactersStates.Loaded(characters)
         } else {

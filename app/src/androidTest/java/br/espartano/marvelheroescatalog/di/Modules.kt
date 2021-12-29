@@ -7,23 +7,51 @@ import br.espartano.marvelheroescatalog.repository.CharactersRepository
 import br.espartano.marvelheroescatalog.repository.CharactersTestRepository
 import br.espartano.marvelheroescatalog.schedulers.SchedulerProvider
 import br.espartano.marvelheroescatalog.schedulers.TrampolineSchedulerProvider
-import br.espartano.marvelheroescatalog.usecase.CharactersUseCase
 import br.espartano.marvelheroescatalog.viewmodels.CharactersViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.dsl.module
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.components.SingletonComponent
+import dagger.hilt.testing.TestInstallIn
 
-val testModule = module {
-    single <CharactersRepository> { CharactersTestRepository() }
-    single<SchedulerProvider> { TrampolineSchedulerProvider() }
-    single<ImageLoader> { TestImageLoader() }
-    factory { CharactersUseCase(get()) }
-    viewModel { CharactersViewModel(get(), get()) }
+
+@Module
+@TestInstallIn(
+    components = [SingletonComponent::class],
+    replaces = [SchedulerModule::class]
+)
+abstract class SchedulersTestModules {
+
+    @Binds
+    abstract fun bindScheduler(impl: TrampolineSchedulerProvider): SchedulerProvider
 }
 
+/**
+@Module
+@TestInstallIn(
+    components = [SingletonComponent::class],
+    replaces = [CharactersRepositoryModule::class]
+)
+abstract class CharactersRepositoryTestModules {
+
+    @Binds
+    abstract fun bindRepository(impl: CharactersTestRepository): CharactersRepository
+}
+*/
+@Module
+@TestInstallIn(
+    components = [SingletonComponent::class],
+    replaces = [CharactersRepositoryModule::class]
+)
+
+abstract class MediaTestModules {
+
+    @Binds
+    abstract fun bindImageLoader(impl: TestImageLoader): ImageLoader
+}
+
+/**
 val testErrorModule = module {
     single<CharactersRepository> { CharactersErrorTestRepository() }
-    single<SchedulerProvider> { TrampolineSchedulerProvider() }
-    single<ImageLoader> { TestImageLoader() }
-    factory { CharactersUseCase(get()) }
     viewModel { CharactersViewModel(get(), get()) }
 }
+*/
