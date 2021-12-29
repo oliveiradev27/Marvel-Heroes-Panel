@@ -48,10 +48,3 @@ abstract class MediaTestModules {
     @Binds
     abstract fun bindImageLoader(impl: TestImageLoader): ImageLoader
 }
-
-/**
-val testErrorModule = module {
-    single<CharactersRepository> { CharactersErrorTestRepository() }
-    viewModel { CharactersViewModel(get(), get()) }
-}
-*/
