@@ -7,9 +7,9 @@ plugins {
     id 'com.google.firebase.appdistribution'
 }
 
-def keystorePropertiesFile = rootProject.file("app/keystore.properties")
-def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+//def keystorePropertiesFile = rootProject.file("app/keystore.properties")
+//def keystoreProperties = new Properties()
+//keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     compileSdkVersion 31
@@ -24,12 +24,14 @@ android {
     }
 
     signingConfigs {
+       /*
        release {
             keyAlias = keystoreProperties["keyAlias"]
             keyPassword = keystoreProperties["keyPassword"]
             storeFile = file(keystoreProperties["storeFile"])
             storePassword = keystoreProperties["storePassword"]
         }
+        */
     }
 
     buildTypes {
@@ -38,12 +40,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
 
+            /*
             firebaseAppDistribution {
                 appId="1:721095657405:android:20527410b5b27b9a2bf4d4"
                 releaseNotesFile = "app/releasenotes.txt"
                 groups = "espartanos"
                 serviceCredentialsFile = "app/service-account-firebasedist.json"
             }
+            */
         }
     }
 
