@@ -33,7 +33,7 @@ class MainActivityTest {
         }
         then {
             validateTitle(HERO_NAME)
-            validateDescrition(HERO_DESCRIPTION)
+            validateDescription(HERO_DESCRIPTION)
         }
     }
 

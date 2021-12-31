@@ -29,7 +29,7 @@ class MainActivityThen {
             .check(matches(withText(title)))
     }
 
-    fun validateDescrition(description: String) {
+    fun validateDescription(description: String) {
         onView(withId(R.id.tv_hero_description))
             .check(matches(withText(description)))
     }
