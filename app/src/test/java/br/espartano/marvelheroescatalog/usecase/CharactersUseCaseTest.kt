@@ -14,7 +14,7 @@ class CharactersUseCaseTest {
     @Test
     fun getCharacters() {
         val repository = mockk<CharactersRepository>()
-        val useCase = CharactersUseCase(repository)
+        val useCase = GetCharactersUseCase(repository)
 
         every { repository.getCharacters(10) } returns Observable.just(mutableListOf(
             Character(1, "Espartano", "Overpower", Thumbnail("", ""))
@@ -22,7 +22,7 @@ class CharactersUseCaseTest {
 
         var nameCharacter: String? = null
 
-        useCase.getCharacteres(1)?.subscribe {
+        useCase(1)?.subscribe {
                 nameCharacter = it[0].name
         }
 
@@ -32,14 +32,14 @@ class CharactersUseCaseTest {
     @Test
     fun getCharacters_returningError() {
         val repository = mockk<CharactersRepository>()
-        val useCase = CharactersUseCase(repository)
+        val useCase = GetCharactersUseCase(repository)
 
         // given
         every { repository.getCharacters(any()) } returns Observable.error(Throwable("error"))
 
         // then
         var throwableMessage: String? = null
-        useCase.getCharacteres(1)?.subscribe(
+        useCase(1)?.subscribe(
             { },
             { e -> throwableMessage = e.message },
             { }

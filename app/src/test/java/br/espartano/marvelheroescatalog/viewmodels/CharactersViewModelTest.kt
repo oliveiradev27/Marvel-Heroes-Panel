@@ -5,7 +5,7 @@ import br.espartano.marvelheroescatalog.data.api.Character
 import br.espartano.marvelheroescatalog.data.api.Thumbnail
 import br.espartano.marvelheroescatalog.repository.CharactersRepository
 import br.espartano.marvelheroescatalog.schedulers.TrampolineSchedulerProvider
-import br.espartano.marvelheroescatalog.usecase.CharactersUseCase
+import br.espartano.marvelheroescatalog.usecase.GetCharactersUseCase
 import br.espartano.marvelheroescatalog.viewmodels.states.CharactersStates
 import io.mockk.every
 import io.mockk.mockk
@@ -26,7 +26,7 @@ class CharactersViewModelTest {
 
     private val trampolineSchedulerProvider = TrampolineSchedulerProvider()
     private val repository = mockk<CharactersRepository>()
-    private val useCase = CharactersUseCase(repository)
+    private val useCase = GetCharactersUseCase(repository)
 
     @Test
     fun `when using resetState, must update state to Initial`() {

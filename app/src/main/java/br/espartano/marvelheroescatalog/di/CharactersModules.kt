@@ -1,7 +1,7 @@
 package br.espartano.marvelheroescatalog.di
 
 import br.espartano.marvelheroescatalog.repository.CharactersRepository
-import br.espartano.marvelheroescatalog.usecase.CharactersUseCase
+import br.espartano.marvelheroescatalog.usecase.GetCharactersUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,6 +14,6 @@ class CharactersModules {
 
     @ViewModelScoped
     @Provides
-    fun provideCharactersUseCase(repository: CharactersRepository): CharactersUseCase =
-        CharactersUseCase(repository = repository)
+    fun provideCharactersUseCase(repository: CharactersRepository): GetCharactersUseCase =
+        GetCharactersUseCase(repository = repository)
 }

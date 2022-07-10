@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.espartano.marvelheroescatalog.data.api.Character
 import br.espartano.marvelheroescatalog.schedulers.SchedulerProvider
-import br.espartano.marvelheroescatalog.usecase.CharactersUseCase
+import br.espartano.marvelheroescatalog.usecase.GetCharactersUseCase
 import br.espartano.marvelheroescatalog.viewmodels.states.CharactersStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class CharactersViewModel @Inject constructor(
-    private val useCase: CharactersUseCase,
+    private val getCharactersUseCase: GetCharactersUseCase,
     private val schedulerProvider: SchedulerProvider
 ) : ViewModel() {
 
@@ -54,7 +54,7 @@ class CharactersViewModel @Inject constructor(
 
     private fun getMoreCharacters(page: Int) {
         currentPage = page
-        useCase.getCharacteres(page = currentPage)?.let {
+        getCharactersUseCase(page = currentPage)?.let {
                 it.subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(
